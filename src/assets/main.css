@@ -1,0 +1,13 @@
+@font-face {
+  font-family: DINNextW01-Regular;
+  font-display: auto;
+  src: local(" DINNextW01-Regular"),
+    url(".public/Fonts/DINNextW01Regular.woff") format("woff"),
+    url(".public/Fonts/DINNextW01Regular.ttf") format("truetype"),
+    url(".public/Fonts/DINNextW01Regular.otf") format("otf");
+}
+
+* {
+  font-family: DINNextW01-Regular, sans-serif;
+  color: rgb(134, 133, 133);
+}
