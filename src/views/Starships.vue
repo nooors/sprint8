@@ -1,29 +1,59 @@
 <template>
   <div class="list" v-if="listInfo">
-    <div class="list__items" v-for="ship in listInfo" :key="ship.name">
-      <div class="list__items__name">
-        {{ ship.name }}
-      </div>
-      <div class="list__items__model">
-        {{ ship.model }}
-      </div>
+    <div class="list__items" v-for="(ship) in listInfo" :key="ship.name">
+      <router-link
+        class="ship"
+        :to="{
+          name: 'Starship',
+          query: {
+            name: ship.name,
+          },
+        }"
+      >
+      <the-summary-card 
+      :name="ship.name"
+      :model="ship.model"
+      >
+      </the-summary-card>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
 import store from "@/store";
+import TheSummaryCard from '@/components/TheSummaryCard'
 
 export default {
+  data: function() {
+    return {
+      id: null,
+    }
+  },
+  components: {
+    TheSummaryCard,
+  },
   beforeCreate() {
     store.dispatch("getShips");
   },
   computed: {
     listInfo: function () {
-      console.log(store.state.infoShips);
+      
       return store.state.infoShips;
     },
   },
+  methods: {
+    findImgId(value){
+      let auxArray = this.listInfo[value].url.split("/");
+      let idImg = auxArray[auxArray.length-2];
+      let name = this.listInfo[value].name;
+      store.dispatch ("getCurrentShipInfo", {
+        idImg,
+        name });
+      this.id = idImg;
+      return idImg;
+    }
+  }
 };
 </script>
 
@@ -46,7 +76,10 @@ export default {
     background-color: #000
     margin: 1rem
     border-radius: 0.5rem
-    box-shadow: 1px 1px 5px 2px #444242
+    transition: all 200ms
+
+    &:hover
+      box-shadow: 1px 1px 5px 2px #444242
 
     .list__items__name, .list__items__model
       color: hsl(0, 0%, 52%)

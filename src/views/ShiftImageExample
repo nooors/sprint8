@@ -1,0 +1,29 @@
+<template>
+ <img :src="filename" @error="onImgError()"></img>
+</template>
+
+<script>
+ export default {
+  name: 'nameofthecomponent',
+  props: {
+  },
+  data: function () {
+   return {
+    imgError: false
+   }
+  },
+  methods: {
+   onImgError() {
+    this.imgError = true;
+   }
+  },
+  computed: {
+   filename() {
+    return (this.imgError) ? "url-to-the-default-img-file" : "url-to-the-custom-img";
+   }
+  }
+ }
+</script>
+
+<style scoped>
+</style>
