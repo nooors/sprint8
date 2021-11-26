@@ -1,6 +1,7 @@
 <template>
   <div class="list" v-if="listInfo">
-    <div class="list__items" v-for="(ship) in listInfo" :key="ship.name">
+    <div class="overflow"></div>
+    <div class="list__items" v-for="ship in listInfo" :key="ship.name">
       <router-link
         class="ship"
         :to="{
@@ -10,50 +11,55 @@
           },
         }"
       >
-      <the-summary-card 
-      :name="ship.name"
-      :model="ship.model"
-      >
-      </the-summary-card>
+        <the-summary-card :name="ship.name" :model="ship.model">
+        </the-summary-card>
       </router-link>
+    </div>
+    <div class="pagination-buttons">
+      <div class="previous-if" v-if="$store.state.allPageInfo.previous">
+      <the-button class="previous-view" @buttonClick="previousPage">Previous</the-button>
+      </div>
+      <div class="next-if" v-if="$store.state.allPageInfo.next">
+        <the-button class="next-view" @buttonClick="nextPage">View more</the-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import store from "@/store";
-import TheSummaryCard from '@/components/TheSummaryCard'
+import TheSummaryCard from "@/components/TheSummaryCard";
+import TheButton from "@/components/TheButton";
 
 export default {
-  data: function() {
-    return {
-      id: null,
-    }
-  },
   components: {
     TheSummaryCard,
+    TheButton,
   },
-  beforeCreate() {
+  created() {
+    if(!this.listInfo){
     store.dispatch("getShips");
+    }
   },
   computed: {
     listInfo: function () {
-      
-      return store.state.infoShips;
+      return store.getters.getShipsInfo;
     },
   },
   methods: {
-    findImgId(value){
-      let auxArray = this.listInfo[value].url.split("/");
-      let idImg = auxArray[auxArray.length-2];
-      let name = this.listInfo[value].name;
-      store.dispatch ("getCurrentShipInfo", {
-        idImg,
-        name });
-      this.id = idImg;
-      return idImg;
+    nextPage() {
+      console.log(`stateNext: ${store.state.allPageInfo.next}`);
+      if (store.state.allPageInfo.next) {
+        console.log("crida a store");
+        store.dispatch("loadNextShips");
+      }
+    },
+    previousPage() {
+      if (store.state.allPageInfo.previous){
+        store.dispatch("loadPreviousShips");
+      }
     }
-  }
+  },
 };
 </script>
 
@@ -91,4 +97,13 @@ export default {
 
     .list__items__model
       padding-bottom: .75rem
+
+.pagination-buttons
+  display: flex
+  justify-content: center
+  gap: 2rem
+
+.overflow 
+  height: 20%
+    
 </style>

@@ -7,6 +7,7 @@
       <the-login></the-login>
     </div>
     <the-nav></the-nav>
+    
   </header>
 </template>
 
@@ -22,4 +23,36 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="css" scoped>
+.header {
+  left: 0;
+  top: 0;
+  position: fixed;
+  height: 20%;
+  width: 100%;
+  background-image: url("../../src/assets/star-wars-backgroundsBlack.jpg");
+  background-size: cover;
+}
+
+.header__content {
+  position: relative;
+  height: 100%;
+}
+.header__logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.header__logo img {
+  height: 80%;
+}
+
+.header__login {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+}
+
+</style>

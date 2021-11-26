@@ -6,48 +6,45 @@ import axios from "axios";
 Vue.use(Vuex);
 
 const resourceApi = "https://swapi.dev/api/starships";
-const resourceImg = "https://starwars-visualguide.com/assets/img/starships/5.jpg";
 
 export default new Vuex.Store({
   state: {
-    infoShips: null,
     allPageInfo: null,
-    currentImg: null,
-    currentName: null,
   },
   getters: {
     getShipsInfo: (state) => {
+      if(state.allPageInfo){
       return state.allPageInfo.results;
-    }
+      }
+    },
   },
 
   mutations: {
-    setShips(state, ships) {
-      state.infoShips = ships;
-      console.log(`strore${state.infoShips}`);
-    },
     setPageInfo(state, info) {
       state.allPageInfo = info;
-      console.log(state.allPageInfo);
-      console.info(state.allPageInfo.results)
-      console.log(state.allPageInfo.count)
     },
-    setCurrentShipInfo (state, id, name) {
-      state.currentImg = id;
-      state.currentName = name;
-    }
   },
   actions: {
     async getShips({ commit }) {
       const response = await axios.get(resourceApi);
-      commit("setShips", response.data.results);
       commit("setPageInfo", response.data);
-      
     },
     getCurrentShipInfo({ commit }, idImg, name) {
       commit("setCurrentShipInfo", idImg, name);
     },
-    
+    async loadNextShips({ commit }) {
+      console.log("Ha arribat a l'acció NEXT");
+      if (this.state.allPageInfo.next) {
+        const response = await axios.get(this.state.allPageInfo.next);
+        commit("setPageInfo", response.data);
+      }
+    },
+    async loadPreviousShips({ commit }) {
+      if (this.state.allPageInfo.previous) {
+        const response = await axios.get(this.state.allPageInfo.previous);
+        commit("setPageInfo", response.data);
+      }
+    }
   },
   modules: {},
 });

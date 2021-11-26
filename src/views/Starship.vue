@@ -36,13 +36,18 @@
         </div>
       </div>
     </div>
+    <the-button @buttonClick="goBack">Go Back</the-button>
   </div>
 </template>
 
 <script>
 import store from "@/store";
+import TheButton from "@/components/TheButton.vue";
 
 export default {
+  components: {
+    TheButton,
+  },
   data: function () {
     return {
       baseUrl: "https://starwars-visualguide.com/assets/img/starships/",
@@ -69,6 +74,9 @@ export default {
   methods: {
     imgError(){
       return this.urlImage = "../assets/default_StarWars.jpg"
+    },
+    goBack() {
+      this.$router.go(-1);
     }
   }
 };
