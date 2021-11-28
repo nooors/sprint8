@@ -32,6 +32,7 @@ export default {
   width: 100%;
   background-image: url("../../src/assets/star-wars-backgroundsBlack.jpg");
   background-size: cover;
+  z-index: 1;
 }
 
 .header__content {

@@ -9,6 +9,9 @@
           query: {
             name: ship.name,
           },
+          params: {
+            name: ship.name
+          }
         }"
       >
         <the-summary-card :name="ship.name" :model="ship.model">
@@ -19,6 +22,7 @@
       <div class="previous-if" v-if="$store.state.allPageInfo.previous">
       <the-button class="previous-view" @buttonClick="previousPage">Previous</the-button>
       </div>
+      <the-button class="toHome" @buttonClick="toHome">Home</the-button>
       <div class="next-if" v-if="$store.state.allPageInfo.next">
         <the-button class="next-view" @buttonClick="nextPage">View more</the-button>
       </div>
@@ -58,6 +62,9 @@ export default {
       if (store.state.allPageInfo.previous){
         store.dispatch("loadPreviousShips");
       }
+    },
+    toHome() {
+      return this.$router.push({name: 'Home'});
     }
   },
 };
@@ -66,17 +73,20 @@ export default {
 <style lang="sass" scoped>
 .list
   padding-bottom: 2rem
-  padding-top: 20%
+  // padding-top: 20%
+  position: absolute
+  top: 25%
+  left: 10%
   margin: auto
   width: 80%
-  @media(max-width: 1285px)
-    padding-top: 25%
-  @media(max-width: 1050px)
-    padding-top: 30%
-  @media(max-width: 850px)
-    padding-top: 35%
-  @media(max-width: 730px)
-    padding-top: 40%
+  // @media(max-width: 1285px)
+  //   padding-top: 25%
+  // @media(max-width: 1050px)
+  //   padding-top: 30%
+  // @media(max-width: 850px)
+  //   padding-top: 35%
+  // @media(max-width: 730px)
+  //   padding-top: 40%
 
   .list__items
     background-color: #000

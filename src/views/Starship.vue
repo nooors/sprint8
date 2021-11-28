@@ -1,12 +1,9 @@
 <template>
   <div class="img-ship-container">
     <div class="img-ship-container__card">
-      <div v-if="urlImage != undefined">
-        <img :src="urlImage" :alt="info[0].name" />
-      </div>
-      <div v-else>
-        <img :src="alternateImage" :alt="info[0].name" />
-      </div>
+      <object :data="urlImage" type="image/jpg" :title="info[0].name">
+        <img src="../../src/assets/default_StarWars.jpg" :alt="info[0].name" />
+      </object>
 
       <div class="ship-content">
         <div class="ship-content__name">
@@ -35,8 +32,8 @@
           </div>
         </div>
       </div>
+      <the-button @buttonClick="goBack">Go Back</the-button>
     </div>
-    <the-button @buttonClick="goBack">Go Back</the-button>
   </div>
 </template>
 
@@ -65,20 +62,20 @@ export default {
       this.info = result;
 
       let auxArray = this.info[0].url.split("/");
-      let idImg = auxArray[auxArray.length-2];
+      let idImg = auxArray[auxArray.length - 2];
 
-      this.urlImage = `${this.baseUrl + idImg}.jpg`
+      this.urlImage = `${this.baseUrl + idImg}.jpg`;
       return idImg;
     }
   },
   methods: {
-    imgError(){
-      return this.urlImage = "../assets/default_StarWars.jpg"
+    imgError() {
+      return (this.urlImage = "../assets/default_StarWars.jpg");
     },
     goBack() {
       this.$router.go(-1);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -86,22 +83,42 @@ export default {
 .img-ship-container {
   margin: auto;
   width: 70%;
-  padding-top: 15%;
+  height: 100%;
   display: flex;
-  justify-content: center;
+  flex-flow: column wrap;
+  align-items: center;
 }
 
 .img-ship-container__card {
-  background-color: black;
-  width: 70%;
+  position: absolute;
+  top: 28%;
+
+  width: 30%;
   display: flex;
   flex-flow: column wrap;
   justify-content: flex-start;
 }
 
-.img-ship-container__card img {
+
+object {
   width: 100%;
   border-bottom: 2px solid red;
+  background-color: black;
+  margin: 0;
+}
+.img-ship-container__card img {
+  width: 100%;
+  /* border-bottom: 2px solid red; */
+  background-color: black;
+  margin: 0;
+}
+
+.ship-content {
+  background-color: black;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  text-align: justify;
 }
 
 .ship-content__name {
@@ -124,5 +141,9 @@ export default {
 
 .feature {
   padding-bottom: 0.5rem;
+}
+.button {
+  align-self: center;
+  margin-top: 0.5rem;
 }
 </style>
