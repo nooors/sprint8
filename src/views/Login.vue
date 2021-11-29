@@ -2,14 +2,15 @@
   <div class="login">
     <div class="login__overflow"></div>
     <div class="login__card">
-      <router-link to="" class="login__card__close" title="close"
-        >x</router-link
-      >
+      <button @click="close" class="login__card__close" title="close">x</button>
 
       <div class="login__card__logo">
         <img src="../assets/Star_Wars_Yellow.png" alt="" />
       </div>
       <div class="login__card__title">sign in</div>
+      <div class="error-login" :class="{ active: loginFail }">
+        Incorrect credentials
+      </div>
 
       <input
         :class="{ active: hasErrorEmail }"
@@ -40,7 +41,7 @@
 </template>
 
 <script>
-import store from '@/store'
+import store from "@/store";
 
 export default {
   data: function () {
@@ -49,6 +50,7 @@ export default {
       password: null,
       hasErrorEmail: false,
       hasErrorPassword: false,
+      loginFail: false,
     };
   },
   methods: {
@@ -57,15 +59,16 @@ export default {
     },
     validate: function () {
       if (this.isValid()) {
-        if(localStorage.getItem('Email') == this.email && localStorage.getItem('Password') == this.password){
-          store.dispatch('loadLogin');
+        if (
+          localStorage.getItem("Email") == this.email &&
+          localStorage.getItem("Password") == this.password
+        ) {
+          store.dispatch("loadLogin");
         } else {
-          alert('Error en el login')
+          this.loginFail = true;
+          setTimeout(() => (this.loginFail = false), 3000);
         }
         this.resetInfo();
-        // localStorage.password = this.password;
-        //  Compare user data
-        // Set store.state.loged in true
       }
     },
     isValid: function () {
@@ -97,7 +100,10 @@ export default {
     resetInfo: function () {
       this.email = null;
       this.password = null;
-    }
+    },
+    close: function () {
+      this.$router.push({name: "Home"});
+    },
   },
 };
 </script>
@@ -155,7 +161,7 @@ export default {
                 border: 2px solid red
                 background-color: hsl(0, 0%, 35%)
                 margin-bottom: .25rem
-                
+
 
 
         .login__card__button__signin,
@@ -187,13 +193,26 @@ export default {
 
             &:hover
                 border: 1px solid rgba(235, 215, 0, .5)
-.error
+.error, .error-login
     display: none
 
-.error.active
+.error.active, .error-login.active
     display: contents
     color: red
     position: absolute
     transform: translateY(-1rem)
     margin-bottom: .75rem
+
+.error-login.active
+    margin-bottom: .5rem
+
+.login__card__close
+  background-color: transparent
+  border: none
+  color: hsl(0, 0%, 35%)
+  cursor: pointer
+  transition: all 300ms
+  &:hover
+    color: white
+    text-shadow: 0 0 5px rgb(255, 255, 255)
 </style>

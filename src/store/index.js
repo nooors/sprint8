@@ -19,6 +19,7 @@ export default new Vuex.Store({
       password: null
 
     },
+    pilots: [],
   },
   getters: {
     getShipsInfo: (state) => {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     },
     getUserInfo: (state) => {
       return state.userInfo;
+    },
+    getPilotsInfo: (state) => {
+      return state.pilots;
     }
   },
 
@@ -51,6 +55,12 @@ export default new Vuex.Store({
     },
     setLogOut(state){
       state.isLoged = false;
+    },
+    setPilots(state, payload) {
+      state.pilots.push(payload);
+    },
+    deletePilots(state){
+      state.pilots = [];
     }
   },
   actions: {
@@ -59,8 +69,7 @@ export default new Vuex.Store({
       commit("setPageInfo", response.data);
     },
     async loadNextShips({ commit }) {
-      console.log("Ha arribat a l'acció NEXT");
-      if (this.state.allPageInfo.next) {
+        if (this.state.allPageInfo.next) {
         const response = await axios.get(this.state.allPageInfo.next);
         commit("setPageInfo", response.data);
       }
@@ -74,18 +83,30 @@ export default new Vuex.Store({
     loadLogin({ commit }) {
       if(Object.values(this.state.userInfo).filter((element) => element == null)
       .length > 0){
-        alert(this.state.userInfo);
         commit("setUserInfo");
       }
       commit("setLoginOn");
-      alert('se ha saltao el state')
     },
     loadUserInfo({ commit }) {
       commit("setUserInfo");
     },
     logOut({ commit }){
       commit("setLogOut");
-    }
-  },
+    },
+    loadPilots({commit}, payload) {
+      if(this.pilots){
+        commit("deletePilots")
+      }
+      let pilots = Object.values(payload);
+      if(pilots){
+        pilots[0].forEach(async(pilot) => {
+          console.log(pilot);
+          const response = await axios.get(pilot);
+          commit("setPilots", response.data);
+        })
+      }
+    },
+  }, 
+  
   modules: {},
 });

@@ -79,15 +79,6 @@ export default {
   left: 10%
   margin: auto
   width: 80%
-  // @media(max-width: 1285px)
-  //   padding-top: 25%
-  // @media(max-width: 1050px)
-  //   padding-top: 30%
-  // @media(max-width: 850px)
-  //   padding-top: 35%
-  // @media(max-width: 730px)
-  //   padding-top: 40%
-
   .list__items
     background-color: #000
     margin: 1rem

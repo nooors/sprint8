@@ -33,6 +33,8 @@
         </div>
       </div>
       <the-button @buttonClick="goBack">Go Back</the-button>
+      <the-pilots
+      :pilots="info[0].pilots" />
     </div>
   </div>
 </template>
@@ -40,10 +42,12 @@
 <script>
 import store from "@/store";
 import TheButton from "@/components/TheButton.vue";
+import ThePilots from "@/components/ThePilots"
 
 export default {
   components: {
     TheButton,
+    ThePilots,
   },
   data: function () {
     return {
