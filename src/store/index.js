@@ -60,7 +60,7 @@ export default new Vuex.Store({
       state.pilots.push(payload);
     },
     deletePilots(state){
-      state.pilots = [];
+      state.pilots.splice(0, pilots.length-1);
     }
   },
   actions: {
@@ -94,18 +94,20 @@ export default new Vuex.Store({
       commit("setLogOut");
     },
     loadPilots({commit}, payload) {
-      if(this.pilots){
-        commit("deletePilots")
+      if(this.state.pilots.length > 0){
+        commit("deletePilots");
       }
       let pilots = Object.values(payload);
       if(pilots){
         pilots[0].forEach(async(pilot) => {
-          console.log(pilot);
           const response = await axios.get(pilot);
           commit("setPilots", response.data);
         })
       }
     },
+    clearPilots({commit}){
+      commit("deletePilots");
+    }
   }, 
   
   modules: {},
