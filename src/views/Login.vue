@@ -63,7 +63,10 @@ export default {
           localStorage.getItem("Email") == this.email &&
           localStorage.getItem("Password") == this.password
         ) {
+          // save login in store state
           store.dispatch("loadLogin");
+          // redirect to a save route
+          this.$router.push({ name: "Starships" });
         } else {
           this.loginFail = true;
           setTimeout(() => (this.loginFail = false), 3000);
@@ -102,7 +105,7 @@ export default {
       this.password = null;
     },
     close: function () {
-      this.$router.push({name: "Home"});
+      this.$router.push({ name: "Home" });
     },
   },
 };

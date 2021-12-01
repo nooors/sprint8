@@ -16,15 +16,14 @@ export default new Vuex.Store({
       lastName: null,
       email: null,
       displayName: null,
-      password: null
-
+      password: null,
     },
     pilots: [],
   },
   getters: {
     getShipsInfo: (state) => {
-      if(state.allPageInfo){
-      return state.allPageInfo.results;
+      if (state.allPageInfo) {
+        return state.allPageInfo.results;
       }
     },
     getIsLoged: (state) => {
@@ -35,33 +34,33 @@ export default new Vuex.Store({
     },
     getPilotsInfo: (state) => {
       return state.pilots;
-    }
+    },
   },
 
   mutations: {
     setPageInfo(state, info) {
       state.allPageInfo = info;
     },
-    setLoginOn(state){
+    setLoginOn(state) {
       state.isLoged = true;
     },
-    setUserInfo(state){
-      console.log('mutaciones');
-      state.userInfo.firstName = localStorage.getItem('First Name');
-      state.userInfo.lastName = localStorage.getItem('Last Name');
-      state.userInfo.displayName = localStorage.getItem('Display Name');
-      state.userInfo.email = localStorage.getItem('Email');     
-      state.userInfo.password = localStorage.getItem('Password');
+    setUserInfo(state) {
+      console.log("mutaciones");
+      state.userInfo.firstName = localStorage.getItem("First Name");
+      state.userInfo.lastName = localStorage.getItem("Last Name");
+      state.userInfo.displayName = localStorage.getItem("Display Name");
+      state.userInfo.email = localStorage.getItem("Email");
+      state.userInfo.password = localStorage.getItem("Password");
     },
-    setLogOut(state){
+    setLogOut(state) {
       state.isLoged = false;
     },
     setPilots(state, payload) {
       state.pilots.push(payload);
     },
-    deletePilots(state){
-      state.pilots.splice(0, pilots.length-1);
-    }
+    deletePilots(state) {
+      state.pilots.splice(0, state.pilots.length);
+    },
   },
   actions: {
     async getShips({ commit }) {
@@ -69,7 +68,7 @@ export default new Vuex.Store({
       commit("setPageInfo", response.data);
     },
     async loadNextShips({ commit }) {
-        if (this.state.allPageInfo.next) {
+      if (this.state.allPageInfo.next) {
         const response = await axios.get(this.state.allPageInfo.next);
         commit("setPageInfo", response.data);
       }
@@ -81,8 +80,10 @@ export default new Vuex.Store({
       }
     },
     loadLogin({ commit }) {
-      if(Object.values(this.state.userInfo).filter((element) => element == null)
-      .length > 0){
+      if (
+        Object.values(this.state.userInfo).filter((element) => element == null)
+          .length > 0
+      ) {
         commit("setUserInfo");
       }
       commit("setLoginOn");
@@ -90,25 +91,25 @@ export default new Vuex.Store({
     loadUserInfo({ commit }) {
       commit("setUserInfo");
     },
-    logOut({ commit }){
+    logOut({ commit }) {
       commit("setLogOut");
     },
-    loadPilots({commit}, payload) {
-      if(this.state.pilots.length > 0){
+    loadPilots({ commit }, payload) {
+      if (this.state.pilots.length > 0) {
         commit("deletePilots");
       }
       let pilots = Object.values(payload);
-      if(pilots){
-        pilots[0].forEach(async(pilot) => {
+      if (pilots) {
+        pilots[0].forEach(async (pilot) => {
           const response = await axios.get(pilot);
           commit("setPilots", response.data);
-        })
+        });
       }
     },
-    clearPilots({commit}){
+    clearPilots({ commit }) {
       commit("deletePilots");
-    }
-  }, 
-  
+    },
+  },
+
   modules: {},
 });

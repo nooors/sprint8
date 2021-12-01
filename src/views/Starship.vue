@@ -33,8 +33,7 @@
         </div>
       </div>
       <the-button @buttonClick="goBack">Go Back</the-button>
-      <the-pilots
-      :pilots="info[0].pilots" />
+      <the-pilots :pilotsProp="pilotsFather" />
     </div>
   </div>
 </template>
@@ -42,7 +41,7 @@
 <script>
 import store from "@/store";
 import TheButton from "@/components/TheButton.vue";
-import ThePilots from "@/components/ThePilots"
+import ThePilots from "@/components/ThePilots";
 
 export default {
   components: {
@@ -55,21 +54,23 @@ export default {
       urlImage: null,
       alternateImage: "../assets/default_StarWars.jpg",
       info: null,
+      pilotsFather: [],
     };
   },
   created: function () {
     if (this.$route.query.name) {
-      console.log(`hola ${this.$route.query.name}`);
+      // getting query parametters and filter ships info that match with paramenters
       let result = store.getters.getShipsInfo.filter((obj) => {
         return obj.name == this.$route.query.name;
       });
       this.info = result;
+      this.pilotsFather = this.info[0].pilots;
 
       let auxArray = this.info[0].url.split("/");
       let idImg = auxArray[auxArray.length - 2];
 
       this.urlImage = `${this.baseUrl + idImg}.jpg`;
-      return idImg;
+      // return idImg;
     }
   },
   methods: {
@@ -102,7 +103,6 @@ export default {
   flex-flow: column wrap;
   justify-content: flex-start;
 }
-
 
 object {
   width: 100%;

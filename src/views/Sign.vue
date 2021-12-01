@@ -2,9 +2,7 @@
   <div class="login">
     <div class="login__overflow"></div>
     <div class="login__card">
-      <router-link to="#" class="login__card__close" title="close"
-        >x</router-link
-      >
+      <button @click="close" class="login__card__close" title="close">x</button>
 
       <div class="login__card__logo">
         <img src="../assets/Star_Wars_Yellow.png" alt="" />
@@ -69,6 +67,12 @@
       >
         Create Account
       </button>
+      <div
+        class="login__card__account__succes"
+        :class="{ active: accountSuccess }"
+      >
+        Your account has been successfully created
+      </div>
       <span class="login__link">Already hav an account?</span>
       <router-link class="login__link__to" :to="{ name: 'Login' }"
         >Sign in</router-link
@@ -78,7 +82,7 @@
 </template>
 
 <script>
-import store from '@/store'
+import store from "@/store";
 export default {
   data: function () {
     return {
@@ -100,6 +104,7 @@ export default {
       messageLastNameError: null,
       messageEmailError: null,
       messagePasswordError: null,
+      accountSuccess: false,
     };
   },
 
@@ -109,6 +114,13 @@ export default {
   },
 
   methods: {
+    close() {
+      if (store.state.Loged) {
+        this.$router.go(-1);
+      } else {
+        this.$router.push({ name: "Home" });
+      }
+    },
     isEmpty(value) {
       switch (value) {
         case "firstName":
@@ -152,7 +164,7 @@ export default {
             this.error.displayNameError = true;
             return this.error.displayNameError;
           }
-          return this.error.displayNameError = false;
+          return (this.error.displayNameError = false);
         case "password":
           const passExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
           if (
@@ -182,45 +194,49 @@ export default {
             .length > 0
         ) {
           // no hay errores pero hay campos vacíos
-          if(!this.infoUser.firstName){
+          if (!this.infoUser.firstName) {
             this.error.firstNameError = true;
-            this.messageFirstNameError = 'Required';
+            this.messageFirstNameError = "Required";
           }
-          if(!this.infoUser.lastName){
+          if (!this.infoUser.lastName) {
             this.error.lastNameError = true;
-            this.messageLastNameError = 'Required'
+            this.messageLastNameError = "Required";
           }
-          if(!this.infoUser.email){
+          if (!this.infoUser.email) {
             this.error.emailError = true;
-            this.messageEmailError = 'Required';
+            this.messageEmailError = "Required";
           }
-          if(!this.infoUser.displayName){
+          if (!this.infoUser.displayName) {
             this.error.displayNameError = true;
           }
-          if(!this.infoUser.password){
+          if (!this.infoUser.password) {
             this.error.passwordError = true;
-            this.messagePasswordError= 'Required'
+            this.messagePasswordError = "Required";
           }
         } else {
-          //Tenemos todos los datos, podemos guardar
-          localStorage.setItem('First Name', this.infoUser.firstName);
-          localStorage.setItem('Last Name', this.infoUser.lastName);
-          localStorage.setItem('Display Name', this.infoUser.displayName);
-          localStorage.setItem('Email', this.infoUser.email);
-          localStorage.setItem('Password', this.infoUser.password);
+          // have all de data, then we can save it
+          localStorage.setItem("First Name", this.infoUser.firstName);
+          localStorage.setItem("Last Name", this.infoUser.lastName);
+          localStorage.setItem("Display Name", this.infoUser.displayName);
+          localStorage.setItem("Email", this.infoUser.email);
+          localStorage.setItem("Password", this.infoUser.password);
           this.resetFields();
-          store.dispatch('loadUserInfo');
-          let proba = localStorage.getItem('First Name');
-          console.log(proba);
-
+          store.dispatch("loadUserInfo");
+          //show info account succed
+          this.accountSuccess = true;
+          setTimeout(() => {
+            this.accountSuccess = false;
+            this.$router.push({ name: "Home" });
+          }, 5000);
+          //redirect to home
         }
       }
     },
     resetFields() {
-      console.log('llega al reset')
-      Object.keys(this.infoUser).forEach(key => this.infoUser[key] = null);
+      console.log("llega al reset");
+      Object.keys(this.infoUser).forEach((key) => (this.infoUser[key] = null));
       console.log(this.infoUser);
-    }
+    },
   },
 };
 </script>
@@ -330,4 +346,22 @@ export default {
     position: absolute
     transform: translateY(-1rem)
     margin-bottom: .75rem
+
+.login__card__close
+  background-color: transparent
+  border: none
+  color: hsl(0, 0%, 35%)
+  cursor: pointer
+  transition: all 300ms
+  &:hover
+    color: white
+    text-shadow: 0 0 5px rgb(255, 255, 255)
+
+.login__card__account__succes
+  display: none
+
+.login__card__account__succes.active
+  display: contents
+  color: green
+  font-size: 1.25rem
 </style>

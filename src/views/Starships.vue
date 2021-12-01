@@ -52,9 +52,9 @@ export default {
   },
   methods: {
     nextPage() {
-      console.log(`stateNext: ${store.state.allPageInfo.next}`);
+      // console.log(`stateNext: ${store.state.allPageInfo.next}`);    --- only for debug purposes
       if (store.state.allPageInfo.next) {
-        console.log("crida a store");
+        // console.log("crida a store");
         store.dispatch("loadNextShips");
       }
     },

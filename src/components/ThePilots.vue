@@ -4,7 +4,7 @@
       <div class="title">
         Related Pilots
       </div>
-      <div v-if="pilotsInfo">
+      <div v-if="pilotsInfo.length > 0">
         <div v-for="(pilot, index) in pilotsInfo" :key="pilot.name">
           <div class="pilots__pilot__img">
             <img :src="imgPilots[index]" alt="" />
@@ -12,7 +12,7 @@
           <div class="pilots__pilot__name">{{ pilot.name }}</div>
         </div>
       </div>
-      <div class="pilots__failed">
+      <div v-else class="pilots__failed">
         There are no related items for this category
       </div>
     </div>
@@ -24,27 +24,44 @@ import store from "@/store";
 const urlBase = "https://starwars-visualguide.com/assets/img/characters/";
 
 export default {
-  props: ["pilots"],
+  props: ["pilotsProp"],
+  data: function () {
+    return {
+      pilotsData: this.pilotsProp,
+      pilotsInfo: [],
+    };
+  },
   // Getting the pilots list from starship info.
-  // beforeCreate: function () {
-  //   if (this.pilots.length > 0) {
-  //     store.dispatch("loadPilots", { pilots: this.pilots });
-  //   }
-  // },
+  created: function () {
+    console.log(`Created ${this.pilotsProp}`);
+    console.log(`Store ${store.state.pilots}`);
+    if (this.pilotsProp) {
+      console.log(">>>Dispactch");
+      store.dispatch("loadPilots", { pilots: this.pilotsProp });
+    }
+  },
   computed: {
-    //if pilots info is stored it recovers the info, an array of objects is espected
-    setPilotsState: function () {
-      if (this.pilots) {
-        // alert('pilots are defined')
-        // alert(this.pilots);
-        store.dispatch("loadPilots", { pilots: this.pilots });
-      }else{
-        // alert('pilots unfefined vamos pal dispatch')
-        store.dsipatch("clearPilots");
-      }
+    //if pilots info is stored it recovers the info, an array of objects is  espected
+    // setPilotsState: function () {
+    //   if (this.pilots) {
+    //     // alert('pilots are defined')
+    //     // alert(this.pilots);
+    //     store.dispatch("loadPilots", { pilots: this.pilots });
+    //   }else{
+    //     // alert('pilots unfefined vamos pal dispatch')
+    //     store.dsipatch("clearPilots");
+    //   }
+    // },
+    // pilotsInfo: function () {
+    //   return store.getters.getPilotsInfo;
+    // },
+    testing: () => {
+      this.pilotsData
+        ? console.log(">>>DataCange")
+        : console.log(">>>Nothig to say");
     },
-    pilotsInfo: function () {
-      return store.getters.getPilotsInfo;
+    pilotsStore: function () {
+      return store.state.pilots;
     },
     imgPilots: function () {
       if (this.pilotsInfo) {
@@ -61,6 +78,20 @@ export default {
 
         return newArray;
       }
+    },
+  },
+  watch: {
+    pilotsData(newValue, oldValue) {
+      console.log("watchProps");
+      console.log(newValue);
+      console.log(this.pilotsData);
+      if (this.pilotsData) {
+        store.dispatch("loadPilots", { pilots: newValue });
+      }
+    },
+    pilotsStore: function () {
+      console.log("watcher Store");
+      this.pilotsInfo = store.getters.getPilotsInfo;
     },
   },
 };
