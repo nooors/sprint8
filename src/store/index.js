@@ -19,6 +19,7 @@ export default new Vuex.Store({
       password: null,
     },
     pilots: [],
+    films: [],
   },
   getters: {
     getShipsInfo: (state) => {
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     },
     getPilotsInfo: (state) => {
       return state.pilots;
+    },
+    getFilmsInfo: (state) => {
+      return state.films;
     },
   },
 
@@ -60,6 +64,12 @@ export default new Vuex.Store({
     },
     deletePilots(state) {
       state.pilots.splice(0, state.pilots.length);
+    },
+    setFilms(state, payload) {
+      state.films.push(payload);
+    },
+    deleteFilms(state) {
+      state.films.splice(0, state.films.length);
     },
   },
   actions: {
@@ -108,6 +118,21 @@ export default new Vuex.Store({
     },
     clearPilots({ commit }) {
       commit("deletePilots");
+    },
+    loadFilms({ commit }, payload) {
+      if (this.state.films.length > 0) {
+        commit("deleteFilms");
+      }
+      let films = Object.values(payload);
+      if (films) {
+        films[0].forEach(async (film) => {
+          const response = await axios.get(film);
+          commit("setFilms", response.data);
+        });
+      }
+    },
+    clearFilms({ commit }) {
+      commit("deleteFilms");
     },
   },
 

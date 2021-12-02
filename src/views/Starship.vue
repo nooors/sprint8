@@ -34,6 +34,7 @@
       </div>
       <the-button @buttonClick="goBack">Go Back</the-button>
       <the-pilots :pilotsProp="pilotsFather" />
+      <the-films :filmsProp="filmsFather" />
     </div>
   </div>
 </template>
@@ -42,11 +43,13 @@
 import store from "@/store";
 import TheButton from "@/components/TheButton.vue";
 import ThePilots from "@/components/ThePilots";
+import TheFilms from "@/components/TheFilms";
 
 export default {
   components: {
     TheButton,
     ThePilots,
+    TheFilms,
   },
   data: function () {
     return {
@@ -55,6 +58,7 @@ export default {
       alternateImage: "../assets/default_StarWars.jpg",
       info: null,
       pilotsFather: [],
+      filmsFather: [],
     };
   },
   created: function () {
@@ -65,12 +69,12 @@ export default {
       });
       this.info = result;
       this.pilotsFather = this.info[0].pilots;
+      this.filmsFather = this.info[0].films;
 
       let auxArray = this.info[0].url.split("/");
       let idImg = auxArray[auxArray.length - 2];
 
       this.urlImage = `${this.baseUrl + idImg}.jpg`;
-      // return idImg;
     }
   },
   methods: {

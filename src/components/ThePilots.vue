@@ -24,42 +24,18 @@ import store from "@/store";
 const urlBase = "https://starwars-visualguide.com/assets/img/characters/";
 
 export default {
+  name: "ThePilots",
   props: ["pilotsProp"],
   data: function () {
     return {
-      pilotsData: this.pilotsProp,
       pilotsInfo: [],
     };
   },
   // Getting the pilots list from starship info.
   created: function () {
-    console.log(`Created ${this.pilotsProp}`);
-    console.log(`Store ${store.state.pilots}`);
-    if (this.pilotsProp) {
-      console.log(">>>Dispactch");
-      store.dispatch("loadPilots", { pilots: this.pilotsProp });
-    }
+    store.dispatch("loadPilots", { pilots: this.pilotsProp });
   },
   computed: {
-    //if pilots info is stored it recovers the info, an array of objects is  espected
-    // setPilotsState: function () {
-    //   if (this.pilots) {
-    //     // alert('pilots are defined')
-    //     // alert(this.pilots);
-    //     store.dispatch("loadPilots", { pilots: this.pilots });
-    //   }else{
-    //     // alert('pilots unfefined vamos pal dispatch')
-    //     store.dsipatch("clearPilots");
-    //   }
-    // },
-    // pilotsInfo: function () {
-    //   return store.getters.getPilotsInfo;
-    // },
-    testing: () => {
-      this.pilotsData
-        ? console.log(">>>DataCange")
-        : console.log(">>>Nothig to say");
-    },
     pilotsStore: function () {
       return store.state.pilots;
     },
@@ -81,16 +57,8 @@ export default {
     },
   },
   watch: {
-    pilotsData(newValue, oldValue) {
-      console.log("watchProps");
-      console.log(newValue);
-      console.log(this.pilotsData);
-      if (this.pilotsData) {
-        store.dispatch("loadPilots", { pilots: newValue });
-      }
-    },
+    // if store.pilots updates, get the info
     pilotsStore: function () {
-      console.log("watcher Store");
       this.pilotsInfo = store.getters.getPilotsInfo;
     },
   },
@@ -98,12 +66,18 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.pilots
+  background-color: black
+  display: flex
+  flex-flow: column wrap
+
 .pilots__pilot__img
-  width: 3rem
-  height: 3rem
+  width: 4rem
+  height: 4rem
   border-radius: 50%
   overflow: hidden
   background-color: blue
+
   img
     max-width: 100%
     max-height: 100%
