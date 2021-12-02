@@ -249,11 +249,6 @@ export default {
     top: 30vh
     width: 100%
 
-    .login__overflow
-        height: 120vh
-
-        @media(max-width: 1400px)
-            height: 140vh
     .login__card
         width: 30vw
         background-color: hsl(0, 0%, 9%)

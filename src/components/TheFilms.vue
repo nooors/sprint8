@@ -1,15 +1,19 @@
 <template>
-  <div>
+  <div class="films-container">
     <div class="films">
       <div class="title">
         Related films
       </div>
-      <div v-if="filmsInfo">
-        <div v-for="(film, index) in filmsInfo" :key="film.name">
+      <div v-if="filmsInfo" class="films-list">
+        <div
+          v-for="(film, index) in filmsInfo"
+          :key="film.name"
+          class="films-list__item"
+        >
           <div class="films__film__img">
             <img :src="imgFilms[index]" alt="" />
           </div>
-          <div class="films__film__name">{{ film.name }}</div>
+          <div class="films__film__name">{{ film.title }}</div>
         </div>
       </div>
       <div class="films__failed" v-else>
@@ -65,4 +69,41 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.films-container
+  width: 55%
+
+.films
+  background-color: black
+  display: flex
+  flex-flow: column wrap
+  padding: 1rem 0 0 1rem
+
+  .title
+    font-size: 1.5rem
+    margin-bottom: 1rem
+
+  .films-list
+    margin-bottom: 1rem
+    display: flex
+    gap: .75rem
+
+
+    .films-list__item
+      display: flex
+      flex-flow: column wrap
+      align-items: center
+
+.films__film__img
+  width: 4rem
+  height: 4rem
+  border-radius: 50%
+  overflow: hidden
+  margin-bottom: .5rem
+
+  img
+    max-width: 100%
+    height:  auto
+    object-fit: cover
+    object-position: center center
+</style>

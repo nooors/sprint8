@@ -1,11 +1,15 @@
 <template>
-  <div>
+  <div class="pilots-container">
     <div class="pilots">
       <div class="title">
         Related Pilots
       </div>
-      <div v-if="pilotsInfo.length > 0">
-        <div v-for="(pilot, index) in pilotsInfo" :key="pilot.name">
+      <div v-if="pilotsInfo.length > 0" class="pilots-list">
+        <div
+          v-for="(pilot, index) in pilotsInfo"
+          :key="pilot.name"
+          class="pilots-list__item"
+        >
           <div class="pilots__pilot__img">
             <img :src="imgPilots[index]" alt="" />
           </div>
@@ -66,21 +70,40 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+
+.pilots-container
+  width: 45%
+
 .pilots
   background-color: black
   display: flex
   flex-flow: column wrap
+  padding: 1rem 0 0 1rem
+
+  .title
+    font-size: 1.5rem
+    margin-bottom: 1rem
+
+  .pilots-list
+    margin-bottom: 1rem
+    display: flex
+    gap: .75rem
+
+    .pilots-list__item
+      display: flex
+      flex-flow: column wrap
+      align-items: center
 
 .pilots__pilot__img
   width: 4rem
   height: 4rem
   border-radius: 50%
   overflow: hidden
-  background-color: blue
+  margin-bottom: .5rem
 
   img
     max-width: 100%
-    max-height: 100%
+    height: auto
     object-fit: cover
     object-position: center center
 </style>

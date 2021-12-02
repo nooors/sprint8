@@ -32,10 +32,12 @@
           </div>
         </div>
       </div>
-      <the-button @buttonClick="goBack">Go Back</the-button>
+    </div>
+    <div class="related-content">
       <the-pilots :pilotsProp="pilotsFather" />
       <the-films :filmsProp="filmsFather" />
     </div>
+    <the-button @buttonClick="goBack">Go Back</the-button>
   </div>
 </template>
 
@@ -91,31 +93,26 @@ export default {
 <style scoped>
 .img-ship-container {
   margin: auto;
-  width: 70%;
+  width: 90%;
   height: 100%;
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: row wrap;
   align-items: center;
 }
 
 .img-ship-container__card {
-  position: absolute;
-  top: 28%;
-
-  width: 30%;
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: row wrap;
   justify-content: flex-start;
 }
 
 object {
-  width: 100%;
-  border-bottom: 2px solid red;
+  width: 45%;
   background-color: black;
   margin: 0;
 }
 .img-ship-container__card img {
-  width: 100%;
+  width: 45%;
   /* border-bottom: 2px solid red; */
   background-color: black;
   margin: 0;
@@ -123,7 +120,7 @@ object {
 
 .ship-content {
   background-color: black;
-  width: 100%;
+  width: 55%;
   position: relative;
   margin: 0;
   text-align: justify;
@@ -136,7 +133,7 @@ object {
 }
 
 .ship-content__description {
-  padding: 0 0.5rem;
+  padding: 0 1rem;
 }
 .ship-content__features {
   display: flex;
@@ -144,11 +141,17 @@ object {
 }
 .ship-content__features__left,
 .ship-content__features__right {
-  padding: 0.75rem 0.5rem;
+  padding: 1rem 1rem;
 }
 
 .feature {
   padding-bottom: 0.5rem;
+}
+
+.related-content {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
 }
 .button {
   align-self: center;
