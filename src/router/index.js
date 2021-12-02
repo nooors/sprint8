@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
 
 import Home from "../views/Home.vue";
 
@@ -16,6 +17,13 @@ const routes = [
     name: "Starships",
     component: () =>
       import(/* webpackChunkName: "starships" */ "../views/Starships.vue"),
+    beforeEnter: (to, from, next) => {
+      if (!store.getters.getIsLoged) {
+        next({ name: "Login" });
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/starships/starship/:name",

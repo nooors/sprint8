@@ -2,10 +2,7 @@
   <div id="app">
     <div class="container">
       <the-header></the-header>
-      <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
+      <div class="spacer"></div>
       <router-view />
     </div>
   </div>
@@ -29,17 +26,17 @@ html {
 }
 
 body {
+  box-sizing: unset;
   margin: 0;
   padding: 0;
   height: 100vh;
+  width: 100vw;
   font-family: DINNextW01-Regular, sans-serif;
   background-color: black;
   color: hsl(0, 0%, 52%);
   background-image: url("../src/assets/star-wars-backgroundsGreyjpg.jpg");
   background-size: contain;
 }
-
-
 
 a {
   text-decoration: none;
@@ -52,5 +49,9 @@ a:hover {
   text-shadow: 0 0 5px rgb(255, 255, 255);
 }
 
-
+.spacer {
+  position: relative;
+  width: 100%;
+  height: 27vh;
+}
 </style>
