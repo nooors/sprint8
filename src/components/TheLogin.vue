@@ -4,18 +4,19 @@
       <router-link to="/Login">LOGIN IN</router-link> //
       <router-link to="/Sign">SING UP</router-link>
     </div>
-    <div v-else>
-      <button class="user" @click="tooggleClass">
-        <img src="../assets/clone1_87097.png" alt="welcome" class="user__img">
+    <div v-else class="user">
+      <button class="user-button" @click="tooggleClass">
+        <img src="../assets/clone1_87097.png" alt="welcome" class="user__img" />
       </button>
       <the-user-info
-      @click="logOut"
-      class="user-info"
-      :class="{ active: isActive }"
-      :name="$store.getters.getUserInfo.firstName"
-      :surname="$store.getters.getUserInfo.lastName"
-      :displayName="$store.getters.getUserInfo.displayName"
-      :email="$store.getters.getUserInfo.email"/>
+        @click="logOut"
+        class="user-info"
+        :class="{ active: isActive }"
+        :name="$store.getters.getUserInfo.firstName"
+        :surname="$store.getters.getUserInfo.lastName"
+        :displayName="$store.getters.getUserInfo.displayName"
+        :email="$store.getters.getUserInfo.email"
+      />
       <div class="user__info"></div>
     </div>
   </div>
@@ -23,17 +24,17 @@
 
 <script>
 import store from "@/store";
-import TheUserInfo from './TheUserInfo.vue';
+import TheUserInfo from "./TheUserInfo.vue";
 
 export default {
   name: "TheLogin",
   components: {
     TheUserInfo,
   },
-  data: function(){
+  data: function () {
     return {
       isActive: false,
-    }
+    };
   },
   methods: {
     tooggleClass() {
@@ -41,21 +42,25 @@ export default {
     },
     logOut() {
       store.dispatch("logOut");
-      this.$router.push({name: "Login"});
-    }
-  }
+      this.$router.push({ name: "Login" });
+    },
+  },
 };
 </script>
-    
+
 <style scoped>
 .header__login {
   position: absolute;
   top: 50%;
   right: 5%;
 }
-button.user{
-  position: relative;
 
+.user {
+  display: flex;
+  flex-flow: column;
+}
+button.user-button {
+  align-self: flex-end;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -67,8 +72,7 @@ button.user{
 .user-info {
   display: none;
 }
-.user-info.active{
+.user-info.active {
   display: initial;
 }
-
 </style>

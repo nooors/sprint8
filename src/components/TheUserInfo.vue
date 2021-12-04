@@ -10,7 +10,7 @@
       <button class="user__info__logout" @click="close">
         <img
           src="../assets/icons8-power-off-button-100.png"
-          alt=""
+          alt="Logout"
           class="user__info__logout__img"
         />
       </button>
@@ -33,7 +33,6 @@ export default {
 <style lang="sass" scoped>
 .user__info
     background-color: rgb(23, 23, 23)
-    width: 12rem
     display: flex
     flex-direction: column
     border-radius: 0 0 .5rem .5rem
@@ -50,7 +49,7 @@ export default {
 
     .user__info__name
         color: rgb(222, 206, 28)
-        padding: 1rem 0 0 .5rem
+        padding: 1rem 0.5rem 0 .5rem
         border-bottom: 1px solid rgba(222, 206, 28, .2)
         border-radius: 0 0 .5rem .5rem
         background-color: rgb(23, 23, 23)
@@ -69,4 +68,8 @@ export default {
         .user__info__logout__img
             width: 2rem
             padding: .25rem 0
+            transition: all 200ms
+
+            &:hover
+              transform: scale(1.2)
 </style>

@@ -30,7 +30,6 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  width: 100vw;
   font-family: DINNextW01-Regular, sans-serif;
   background-color: black;
   color: hsl(0, 0%, 52%);
