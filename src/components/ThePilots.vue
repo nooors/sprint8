@@ -73,6 +73,10 @@ export default {
 
 .pilots-container
   width: 45%
+  background-color: black
+
+  @media only screen and (max-width: 800px)
+    width: 100%
 
 .pilots
   background-color: black

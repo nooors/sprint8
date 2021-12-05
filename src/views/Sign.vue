@@ -108,10 +108,10 @@ export default {
     };
   },
 
-  created: function () {
-    console.log(this.error);
-    console.log(this.error.firstNameError);
-  },
+  // created: function () {
+  //   console.log(this.error);
+  //   console.log(this.error.firstNameError);
+  // },
 
   methods: {
     close() {
@@ -249,6 +249,7 @@ export default {
     top: 30vh
     width: 100%
 
+
     .login__card
         width: 30vw
         background-color: hsl(0, 0%, 9%)
@@ -256,6 +257,8 @@ export default {
         display: flex
         flex-flow: column wrap
         align-items: center
+        @media only screen and (max-width: 1200px)
+          width: 50vw
 
         .login__card__close
             align-self: flex-end

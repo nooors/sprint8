@@ -69,10 +69,36 @@ button.user-button {
   width: 50px;
 }
 
+.user__img:hover {
+  animation-name: logo-hover;
+  animation-duration: 300ms;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+@keyframes logo-hover {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
 .user-info {
   display: none;
 }
 .user-info.active {
   display: initial;
+  animation-name: user-on;
+  animation-duration: 500ms;
+}
+
+@keyframes user-on {
+  0% {
+    transform: translate(200px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
 }
 </style>

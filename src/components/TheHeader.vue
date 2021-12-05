@@ -7,7 +7,6 @@
       <the-login></the-login>
     </div>
     <the-nav></the-nav>
-    
   </header>
 </template>
 
@@ -35,6 +34,18 @@ export default {
   z-index: 1;
 }
 
+@media only screen and (max-width: 800px) {
+  .header {
+    left: initial;
+    top: initial;
+    position: absolute;
+  }
+
+  .spacer {
+    display: none;
+  }
+}
+
 .header__content {
   position: relative;
   height: 100%;
@@ -55,5 +66,4 @@ export default {
   top: 50%;
   right: 5%;
 }
-
 </style>

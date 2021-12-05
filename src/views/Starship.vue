@@ -153,6 +153,29 @@ object {
   display: flex;
   flex-flow: row wrap;
 }
+
+@media only screen and (max-width: 800px) {
+  .img-ship-container__card {
+    flex-direction: column;
+    align-content: center;
+  }
+
+  object {
+    width: 100%;
+  }
+
+  .img-ship-container__card img {
+    width: 100%;
+  }
+
+  .ship-content {
+    width: 100%;
+  }
+
+  .related-content {
+    flex-direction: column;
+  }
+}
 .button {
   align-self: center;
   margin-top: 0.5rem;
