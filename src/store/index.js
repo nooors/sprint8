@@ -5,7 +5,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
-const resourceApi = "https://swapi.dev/api/starships";
+const resourceApi = "https://swapi.py4e.com/api/starships";
 
 export default new Vuex.Store({
   state: {

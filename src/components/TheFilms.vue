@@ -73,6 +73,8 @@ export default {
 .films-container
   width: 55%
 
+  @media only screen and (max-width: 800px)
+    width: 100%
 .films
   background-color: black
   display: flex

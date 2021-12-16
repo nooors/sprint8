@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TheNav.vue Renders the component 1`] = `
+<nav>
+  <div class="nav">
+    <router-link-stub to="[object Object]">HOME</router-link-stub>
+    <router-link-stub to="[object Object]">STARSHIPS</router-link-stub>
+  </div>
+</nav>
+`;

@@ -126,6 +126,8 @@ export default {
         display: flex
         flex-flow: column wrap
         align-items: center
+        @media only screen and (max-width: 1200px)
+          width: 50vw
 
         .login__card__close
             align-self: flex-end

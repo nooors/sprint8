@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TheUserInfo component Renders the comoponent 1`] = `
+<div>
+  <div class="user__info">
+    <div class="user__info__title">Welcome</div>
+    <div class="user__info__name"></div>
+    <div class="user__info__name"></div>
+    <div class="user__info__name"></div>
+    <div class="user__info__name"></div>
+    <div class="user__info__name__gap"></div> <button class="user__info__logout"><img src="../assets/icons8-power-off-button-100.png" alt="Logout" class="user__info__logout__img"></button>
+  </div>
+</div>
+`;
