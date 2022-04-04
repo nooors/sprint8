@@ -1,109 +1,98 @@
 <template>
-  <div class="home-container">
+  <section class="home-container">
     <div class="wrapper">
-      <div class="scroll-text">
+      <div class="title">
         <h1>STAR WARS</h1>
         <h2>Scrolling Text Effect</h2>
-        <the-button @click="toStarships">Starships</the-button>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores
-          aut cupiditate unde ipsam ut fugit deleniti non autem, ab, tempore
-          ratione quo, nihil delectus sequi incidunt voluptates quis. Expedita!
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores
-          aut cupiditate unde ipsam ut fugit deleniti non autem, ab, tempore
-          ratione quo, nihil delectus sequi incidunt voluptates quis. Expedita!
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores
-          aut cupiditate unde ipsam ut fugit deleniti non autem, ab, tempore
-          ratione quo, nihil delectus sequi incidunt voluptates quis. Expedita!
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores
-          aut cupiditate unde ipsam ut fugit deleniti non autem, ab, tempore
-          ratione quo, nihil delectus sequi incidunt voluptates quis. Expedita!
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores
-          aut cupiditate unde ipsam ut fugit deleniti non autem, ab, tempore
-          ratione quo, nihil delectus sequi incidunt voluptates quis. Expedita!
-        </p>
       </div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores aut
+        cupiditate unde ipsam ut fugit deleniti non autem, ab, tempore ratione
+        quo, nihil delectus sequi incidunt voluptates quis. Expedita!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores aut
+        cupiditate unde ipsam ut fugit deleniti non autem, ab, tempore ratione
+        quo, nihil delectus sequi incidunt voluptates quis. Expedita!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores aut
+        cupiditate unde ipsam ut fugit deleniti non autem, ab, tempore ratione
+        quo, nihil delectus sequi incidunt voluptates quis. Expedita!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores aut
+        cupiditate unde ipsam ut fugit deleniti non autem, ab, tempore ratione
+        quo, nihil delectus sequi incidunt voluptates quis. Expedita!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores aut
+        cupiditate unde ipsam ut fugit deleniti non autem, ab, tempore ratione
+        quo, nihil delectus sequi incidunt voluptates quis. Expedita!
+      </p>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
-import TheButton from "../components/TheButton.vue";
 export default {
   name: "Home",
-  components: {
-    TheButton,
-  },
-  methods: {
-    toStarships: function () {
-      return this.$router.push({ name: "Starships" });
-    },
-  },
 };
 </script>
 
 <style lang="css" scoped>
-.home-container {
-  /* background: rgb(20, 20, 20); */
-  overflow: hidden;
-  /* push down the the wrapper by half the page */
-  /* margin: 50% 0 0 0; */
+.fade {
   position: relative;
-  display: flex;
-  flex-flow: column wrap;
-}
-.home-container::after {
-  content: "";
-  position: fixed;
-  top: 0;
   width: 100%;
-  height: 50%;
-  /* background to fade out the text as it goes up */
-  background: linear-gradient(
-    180deg,
-    rgba(20, 20, 20, 1) 40%,
-    rgba(20, 20, 20, 0) 100%
-  );
+  min-height: 60vh;
+  top: -25px;
+  background-image: linear-gradient(0deg, transparent, black 75%);
+  z-index: 1;
 }
-.wrapper {
-  display: flex;
+
+.home-container {
+  width: 100%;
   height: 100%;
-  width: 60%;
-  margin: 0 auto;
-  /* perspective gives us a 3d space within the element to work with*/
-  /* perspective also has the effect of pushing the content "down" */
-  perspective: 450px;
-}
-.scroll-text {
-  color: #ffc909;
-  font-size: 3vw;
-  line-height: 1.5em;
-  font-weight: bold;
-  text-align: justify;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
   position: relative;
-  animation: scroll 60s linear forwards;
+  height: 800px;
+  color: #feda4a;
+  font-family: "Pathway Gothic One", sans-serif;
+  font-size: 500%;
+  font-weight: 600;
+  letter-spacing: 6px;
+  line-height: 150%;
+  perspective: 400px;
+  text-align: justify;
 }
-h1,
-h2 {
+
+.wrapper {
+  position: relative;
+  top: 9999px;
+  transform-origin: 50% 100%;
+  animation: wrapper 60s linear;
+}
+
+.wrapper > .title {
+  font-size: 90%;
   text-align: center;
 }
 
-@keyframes scroll {
-  from {
+.wrapper > .title h1 {
+  margin: 0 0 100px;
+  text-transform: uppercase;
+}
+
+@keyframes wrapper {
+  0% {
     top: 0;
-    transform: translateZ(0) rotateX(20deg);
+    transform: rotateX(20deg) translateZ(0);
   }
-  to {
-    top: -7500px;
-    transform: translateZ(-2500px) rotateX(21deg);
+  100% {
+    top: -6000px;
+    transform: rotateX(25deg) translateZ(-2500px);
   }
 }
 </style>
